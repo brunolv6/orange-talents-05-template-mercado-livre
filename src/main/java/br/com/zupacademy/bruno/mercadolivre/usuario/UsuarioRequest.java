@@ -6,10 +6,13 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.zupacademy.bruno.mercadolivre.validator.Unico;
+
 public class UsuarioRequest {
 
 	@NotBlank
 	@Email
+	@Unico(entidade = Usuario.class, atributo = "email")
 	private String email;
 
 	@NotBlank
