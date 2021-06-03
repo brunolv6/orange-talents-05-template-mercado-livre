@@ -22,7 +22,7 @@ public class UsuarioController {
 	@Transactional
 	public ResponseEntity<?> criar(@RequestBody @Valid UsuarioRequest request){
 		
-		Usuario usuario = request.toModel();
+		Usuario usuario = request.toModel(em);
 		
 		em.persist(usuario);
 		
