@@ -3,6 +3,8 @@ package br.com.zupacademy.bruno.mercadolivre.errors;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.AbstractNestablePropertyAccessor;
+import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -47,6 +49,12 @@ public class HandleErrors {
 	@ExceptionHandler(InternalAuthenticationServiceException.class)
 	public ResponseEntity handleAuthenticationException(InternalAuthenticationServiceException e) {
 		ErrosFormularioDto erroDto = new ErrosFormularioDto("Dados de acesso", "incorretos ou não encontrados");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
+	}
+	
+	@ExceptionHandler(NotReadablePropertyException.class)
+	public ResponseEntity handleAuthenticationException2(NotReadablePropertyException e) {
+		ErrosFormularioDto erroDto = new ErrosFormularioDto("Características", "todas devem ter nome e descrição");
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
 	}
 

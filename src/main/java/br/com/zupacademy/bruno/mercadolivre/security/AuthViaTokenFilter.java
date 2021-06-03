@@ -53,6 +53,8 @@ public class AuthViaTokenFilter extends OncePerRequestFilter {
 	}
 
 	private void autenticarCliente(String token) {
+		
+		Assert.notNull(token, "Token não deve ser null");
 
 		Long idUsuario = gerenciarToken.getIdUsuario(token);
 

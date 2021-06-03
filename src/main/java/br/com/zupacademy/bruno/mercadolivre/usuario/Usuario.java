@@ -105,4 +105,11 @@ public class Usuario implements UserDetails {
 		return this.id;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", email=" + email + ", senha=" + senha + ", perfis=" + perfis + ", dataCriacao="
+				+ dataCriacao + "]";
+	}
+	
+
 }
