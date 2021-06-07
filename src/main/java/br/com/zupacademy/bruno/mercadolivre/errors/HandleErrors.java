@@ -16,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MultipartException;
 
 @RestControllerAdvice
 public class HandleErrors {
@@ -52,9 +53,21 @@ public class HandleErrors {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
 	}
 	
+	@ExceptionHandler(MultipartException.class)
+	public ResponseEntity handleAuthenticationException(MultipartException e) {
+		ErrosFormularioDto erroDto = new ErrosFormularioDto("Imagens", "Deve haver no mínimo uma imagem");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
+	}
+	
 	@ExceptionHandler(NotReadablePropertyException.class)
 	public ResponseEntity handleAuthenticationException2(NotReadablePropertyException e) {
 		ErrosFormularioDto erroDto = new ErrosFormularioDto("Características", "todas devem ter nome e descrição");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
+	}
+	
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity handleAuthenticationException(RuntimeException e) {
+		ErrosFormularioDto erroDto = new ErrosFormularioDto("Incompatibility", e.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
 	}
 

@@ -7,31 +7,28 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Caracteristica {
+public class Imagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotBlank
-	private String nome;
-
-	@NotBlank
-	private String descricao;
+	private String linkImagem;
 
 	@Deprecated
-	public Caracteristica() {
+	public Imagem() {
+		super();
 	}
 
-	public Caracteristica(@NotBlank String nome, @NotBlank String descricao) {
+	public Imagem(@NotBlank String linkImagem) {
 		super();
-		this.nome = nome;
-		this.descricao = descricao;
+		this.linkImagem = linkImagem;
 	}
 
 	@Override
 	public String toString() {
-		return "Caracteristica [id=" + id + ", nome=" + nome + ", descricao=" + descricao + "]";
+		return "Imagem [id=" + id + ", linkImagem=" + linkImagem + "]";
 	}
 
 }

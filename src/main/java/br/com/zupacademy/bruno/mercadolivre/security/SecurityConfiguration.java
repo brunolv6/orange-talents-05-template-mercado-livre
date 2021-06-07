@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			.and().httpBasic()
 			.and().formLogin()
-			.and().csrf().disable()
+			.and().csrf().disable()	
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and().addFilterBefore(new AuthViaTokenFilter(gerenciarToken, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 	}
