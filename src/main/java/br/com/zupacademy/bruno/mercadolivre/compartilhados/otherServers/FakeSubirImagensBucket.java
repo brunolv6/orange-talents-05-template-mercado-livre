@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import br.com.zupacademy.bruno.mercadolivre.produto.ImagensRequest;
+import br.com.zupacademy.bruno.mercadolivre.cadastroProduto.ImagensRequest;
 
 @Component
-public class FakeSubirImagensBucket implements ExternServer{
+public class FakeSubirImagensBucket implements ExternalServer{
 
 	@Override
 	public Set<String> upload(ImagensRequest listaImagens){
