@@ -9,7 +9,7 @@ import javax.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
-import br.com.zupacademy.bruno.mercadolivre.compartilhados.validator.Unico;
+import br.com.zupacademy.bruno.mercadolivre.compartilhados.validators.Unico;
 
 public class UsuarioRequest {
 

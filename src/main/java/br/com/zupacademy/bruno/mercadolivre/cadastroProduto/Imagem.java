@@ -26,6 +26,10 @@ public class Imagem {
 		this.linkImagem = linkImagem;
 	}
 
+	public String getLinkImagem() {
+		return linkImagem;
+	}
+
 	@Override
 	public String toString() {
 		return "Imagem [id=" + id + ", linkImagem=" + linkImagem + "]";

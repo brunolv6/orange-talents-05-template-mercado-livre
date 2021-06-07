@@ -18,7 +18,7 @@ import br.com.zupacademy.bruno.mercadolivre.cadastroUsuario.Usuario;
 
 @RestController
 public class OpiniaoController {
-	
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -33,7 +33,9 @@ public class OpiniaoController {
 
 		Opniao novaOpiniao = opniaoRequest.toModel(usuario, produto);
 
-		em.persist(novaOpiniao);
+		produto.addOpniao(novaOpiniao);
+
+		em.merge(produto);
 
 		return ResponseEntity.ok().build();
 	}

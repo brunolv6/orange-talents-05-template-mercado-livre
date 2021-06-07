@@ -56,8 +56,10 @@ public class ProdutoController {
 			@PathVariable("id") Long id, @AuthenticationPrincipal Usuario usuarioLogado) {
 
 		Produto produto = em.find(Produto.class, id);
+		
+		Assert.notNull(produto, "Produto não encontrado");
 
-		if (produto.getDono().getUsername() != usuarioLogado.getUsername()) {
+		if (!produto.getDono().getUsername().equals(usuarioLogado.getUsername())) {
 			return ResponseEntity.status(403).build();
 		}
 

@@ -37,8 +37,10 @@ public class PerguntaController {
 		Assert.notNull(produto, "Produto não encontrado");
 
 		Pergunta novaPergunta = perguntaRequest.toModel(usuario, produto);
+		
+		produto.addPergunta(novaPergunta);
 
-		em.persist(novaPergunta);
+		em.merge(produto);
 
 		fakeEnviarEmail.send(novaPergunta);
 

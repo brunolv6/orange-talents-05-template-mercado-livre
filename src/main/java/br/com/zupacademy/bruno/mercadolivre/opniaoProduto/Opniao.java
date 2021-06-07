@@ -56,4 +56,16 @@ public class Opniao {
 		this.produto = produto;
 	}
 
+	public Integer getNota() {
+		return nota;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
 }

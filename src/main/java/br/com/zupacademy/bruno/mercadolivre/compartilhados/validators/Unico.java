@@ -1,4 +1,4 @@
-package br.com.zupacademy.bruno.mercadolivre.compartilhados.validator;
+package br.com.zupacademy.bruno.mercadolivre.compartilhados.validators;
 
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;

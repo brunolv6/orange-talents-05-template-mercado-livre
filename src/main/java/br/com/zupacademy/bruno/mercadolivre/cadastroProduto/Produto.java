@@ -1,11 +1,13 @@
 package br.com.zupacademy.bruno.mercadolivre.cadastroProduto;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,6 +29,8 @@ import com.sun.istack.NotNull;
 
 import br.com.zupacademy.bruno.mercadolivre.cadastroCategoria.Categoria;
 import br.com.zupacademy.bruno.mercadolivre.cadastroUsuario.Usuario;
+import br.com.zupacademy.bruno.mercadolivre.opniaoProduto.Opniao;
+import br.com.zupacademy.bruno.mercadolivre.perguntaProduto.Pergunta;
 
 @Entity
 public class Produto {
@@ -63,8 +67,15 @@ public class Produto {
 	@NotNull
 	private LocalDateTime dataCriacao = LocalDateTime.now();
 
-	@OneToMany(cascade = CascadeType.ALL) // cascade works for persist objects like Image before they've been persisted manually
+	@OneToMany(cascade = CascadeType.ALL) // cascade works for persist objects like Image before they've been persisted
+											// manually
 	private Set<Imagem> urlImagens = new HashSet<Imagem>();
+
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	private List<Pergunta> perguntas = new ArrayList<>();
+
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	private List<Opniao> opnioes = new ArrayList<>();
 
 	@Deprecated
 	public Produto() {
@@ -88,6 +99,14 @@ public class Produto {
 
 	public void setUrlImagem(Imagem urlImagem) {
 		this.urlImagens.add(urlImagem);
+	}
+
+	public void addPergunta(Pergunta pergunta) {
+		this.perguntas.add(pergunta);
+	}
+
+	public void addOpniao(Opniao opniao) {
+		this.opnioes.add(opniao);
 	}
 
 	public Long getId() {
@@ -118,20 +137,32 @@ public class Produto {
 		return descricao;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public String getCategoria_Nome() {
+		return this.categoria.getNome();
 	}
 
 	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
 
-	@Override
-	public String toString() {
-		return "Produto [id=" + id + ", dono=" + dono + ", nome=" + nome + ", valor=" + valor
-				+ ", quantidadeDisponivel=" + quantidadeDisponivel + ", caracteristicas=" + caracteristicas
-				+ ", descricao=" + descricao + ", categoria=" + categoria + ", dataCriacao=" + dataCriacao
-				+ ", urlImagens=" + urlImagens + "]";
+	public List<String> getUrlImagens_Link() {
+		return urlImagens.stream().map(imagem -> imagem.getLinkImagem()).collect(Collectors.toList());
+	}
+
+	public List<String> getPerguntas_Titulo() {
+		return perguntas.stream().map(pergunta -> pergunta.getTitulo()).collect(Collectors.toList());
+	}
+
+	public List<Opniao> getOpnioes() {
+		return opnioes;
+	}
+	
+	public String getNotaMedia() {
+		int somaNotas = this.opnioes.stream().map(Opniao::getNota).reduce(0, (subtotal, nota) -> subtotal + nota);
+		
+		if(this.opnioes.isEmpty()) return "0.0";
+		
+		return new DecimalFormat("#.#").format((float) somaNotas/this.opnioes.size());
 	}
 
 }

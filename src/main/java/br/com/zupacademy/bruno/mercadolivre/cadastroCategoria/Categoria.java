@@ -36,6 +36,10 @@ public class Categoria {
 		this.categoriaMae = categoriaMae;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
 	@Override
 	public String toString() {
 		return "Categoria [id=" + id + ", nome=" + nome + ", categoriaMae=" + categoriaMae + "]";
