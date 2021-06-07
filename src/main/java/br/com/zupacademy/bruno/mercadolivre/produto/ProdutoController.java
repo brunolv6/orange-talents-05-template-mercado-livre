@@ -1,6 +1,5 @@
 package br.com.zupacademy.bruno.mercadolivre.produto;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -10,9 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.server.authorization.AuthorizationContext;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,10 +38,7 @@ public class ProdutoController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid ProdutoRequest produtoRequest,
-			@RequestHeader(name = "Authorization") String token) {
-
-		Usuario usuario = getUsuarioByToken(token);
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid ProdutoRequest produtoRequest, @AuthenticationPrincipal Usuario usuario) {
 
 		Produto novoProduto = produtoRequest.toModel(em, usuario);
 
@@ -56,11 +50,9 @@ public class ProdutoController {
 	@PostMapping("/{id}/imagens")
 	@Transactional
 	public ResponseEntity<?> enviarImagens(@ModelAttribute @Valid ImagensRequest imagensRequest, @PathVariable("id") Long id,
-			@RequestHeader(name = "Authorization") String token) {
+			@AuthenticationPrincipal Usuario usuarioLogado) {
 		
 		Produto produto = em.find(Produto.class, id);
-
-		Usuario usuarioLogado = getUsuarioByToken(token);
 
 		if (produto.getDono().getUsername() != usuarioLogado.getUsername()) {
 			return ResponseEntity.status(403).build();
@@ -79,17 +71,21 @@ public class ProdutoController {
 
 		return ResponseEntity.ok().build();
 	}
+	
+	@PostMapping("/{id}/opniao")
+	@Transactional
+	public ResponseEntity<?> perguntar(@RequestBody @Valid OpniaoRequest opniaoRequest,
+			@PathVariable("id") Long id,
+			@AuthenticationPrincipal Usuario usuario) {
 
-	private Usuario getUsuarioByToken(String token) {
+		Produto produto = em.find(Produto.class, id);
+		
+		Assert.notNull(produto, "Produto não encontrado");
 
-		token = token.substring(7, token.length());
-
-		Long id = gerenciarToken.getIdUsuario(token);
-
-		Usuario usuario = em.find(Usuario.class, id);
-
-		Assert.notNull(usuario, "Usuário não encontrado");
-
-		return usuario;
+		Opniao novaOpiniao = opniaoRequest.toModel(usuario, produto);
+		
+		em.persist(novaOpiniao);
+		
+		return ResponseEntity.ok().build();
 	}
 }
