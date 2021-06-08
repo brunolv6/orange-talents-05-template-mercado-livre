@@ -67,7 +67,7 @@ public class HandleErrors {
 	
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity handleAuthenticationException(RuntimeException e) {
-		ErrosFormularioDto erroDto = new ErrosFormularioDto("Incompatibility", e.getMessage());
+		ErrosFormularioDto erroDto = new ErrosFormularioDto("Incompatibilidade", e.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
 	}
 

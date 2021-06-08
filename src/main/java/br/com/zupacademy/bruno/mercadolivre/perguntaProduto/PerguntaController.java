@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zupacademy.bruno.mercadolivre.cadastroProduto.Produto;
 import br.com.zupacademy.bruno.mercadolivre.cadastroUsuario.Usuario;
-import br.com.zupacademy.bruno.mercadolivre.compartilhados.email.FakeEnviarEmail;
+import br.com.zupacademy.bruno.mercadolivre.compartilhados.email.FakeEnviarEmailPergunta;
 
 @RestController
 public class PerguntaController {
@@ -25,7 +25,7 @@ public class PerguntaController {
 	private EntityManager em;
 	
 	@Autowired
-	private FakeEnviarEmail fakeEnviarEmail;
+	private FakeEnviarEmailPergunta fakeEnviarEmailPergunta;
 	
 	@PostMapping("/api/produto/{id}/pergunta")
 	@Transactional
@@ -42,7 +42,7 @@ public class PerguntaController {
 
 		em.merge(produto);
 
-		fakeEnviarEmail.send(novaPergunta);
+		fakeEnviarEmailPergunta.send(novaPergunta);
 
 		return ResponseEntity.ok().build();
 	}

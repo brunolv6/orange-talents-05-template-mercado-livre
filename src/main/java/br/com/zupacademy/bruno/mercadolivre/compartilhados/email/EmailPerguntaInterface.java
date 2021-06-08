@@ -2,7 +2,7 @@ package br.com.zupacademy.bruno.mercadolivre.compartilhados.email;
 
 import br.com.zupacademy.bruno.mercadolivre.perguntaProduto.Pergunta;
 
-public interface EmailInterface {
+public interface EmailPerguntaInterface {
 	
 	public void send(Pergunta pergunta);
 }

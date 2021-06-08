@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -163,6 +164,14 @@ public class Produto {
 		if(this.opnioes.isEmpty()) return "0.0";
 		
 		return new DecimalFormat("#.#").format((float) somaNotas/this.opnioes.size());
+	}
+
+	public Boolean abaterEstoque(Integer quantidade) {
+		if(quantidade > this.quantidadeDisponivel) return false;
+		
+		this.quantidadeDisponivel = this.quantidadeDisponivel - quantidade;
+		
+		return true;
 	}
 
 }

@@ -15,18 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zupacademy.bruno.mercadolivre.cadastroUsuario.Usuario;
-import br.com.zupacademy.bruno.mercadolivre.compartilhados.configs.security.GerenciarToken;
-import br.com.zupacademy.bruno.mercadolivre.compartilhados.email.FakeEnviarEmail;
 import br.com.zupacademy.bruno.mercadolivre.compartilhados.otherServers.FakeSubirImagensBucket;
-import br.com.zupacademy.bruno.mercadolivre.opniaoProduto.Opniao;
-import br.com.zupacademy.bruno.mercadolivre.opniaoProduto.OpniaoRequest;
-import br.com.zupacademy.bruno.mercadolivre.perguntaProduto.Pergunta;
-import br.com.zupacademy.bruno.mercadolivre.perguntaProduto.PerguntaRequest;
 
 @RestController
 @RequestMapping("/api/produto")

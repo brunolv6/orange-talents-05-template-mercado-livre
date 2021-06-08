@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import br.com.zupacademy.bruno.mercadolivre.perguntaProduto.Pergunta;
 
 @Component
-public class FakeEnviarEmail implements EmailInterface{
+public class FakeEnviarEmailPergunta implements EmailPerguntaInterface{
 
 	@Override
 	public void send(Pergunta pergunta) {
