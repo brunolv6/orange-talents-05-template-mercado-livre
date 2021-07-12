@@ -1,8 +1,7 @@
-package br.com.zupacademy.bruno.mercadolivre.pedido;
+package br.com.zupacademy.bruno.mercadolivre.efetuarCompra.fazerPedido;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zupacademy.bruno.mercadolivre.cadastroProduto.Produto;
 import br.com.zupacademy.bruno.mercadolivre.cadastroUsuario.Usuario;
-import br.com.zupacademy.bruno.mercadolivre.compartilhados.email.FakeEnviarEmailCompra;
+import br.com.zupacademy.bruno.mercadolivre.compartilhados.servicosExternos.enviarEmail.fluxoCompra.FakeEnviarEmailCompra;
 
 @RestController
 @RequestMapping("/api/{id}/pedidos")
@@ -30,7 +29,7 @@ public class PedidoController {
 	
 	@Autowired
 	private FakeEnviarEmailCompra fakeEnviarEmailCompra;
-
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> pedir(@RequestBody @Valid PedidoRequest pedidoRequest, @PathVariable Long id, @AuthenticationPrincipal Usuario comprador) {
@@ -42,17 +41,12 @@ public class PedidoController {
 		em.persist(novoPedido);
 		
 		fakeEnviarEmailCompra.emailPedidoIniciado(novoPedido);
-		
+		 
 		HttpHeaders headers = new HttpHeaders();
 		
-		if(novoPedido.getGatewayDePagamento() == GatewayDePagamento.PAYPAL) {
-			headers.add("Location", "https://paypal.com?buyerId=" + novoPedido.getIdPedido() + "&redirectUrl=http://localhost:8080/api/retorno-paypal/" + novoPedido.getIdPedido());
-		} else {
-			headers.add("Location", "https://pagseguro.com?buyerId=" + novoPedido.getIdPedido() + "&redirectUrl=http://localhost:8080/api/retorno-pagseguro/" + novoPedido.getIdPedido());
-		}
+		headers.add("Location", novoPedido.getUrlGatewayDePagamento());
 
-		// new ResponseEntity<byte []>(null, headers, HttpStatus.FOUND)
+		return new ResponseEntity<byte []>(null, headers, HttpStatus.FOUND);
 
-		return ResponseEntity.status(HttpStatus.FOUND).build();
 	}
 }

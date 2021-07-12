@@ -1,11 +1,11 @@
-package br.com.zupacademy.bruno.mercadolivre.compartilhados.email;
+package br.com.zupacademy.bruno.mercadolivre.compartilhados.servicosExternos.enviarEmail.sinalizarPergunta;
 
 import org.springframework.stereotype.Component;
 
 import br.com.zupacademy.bruno.mercadolivre.perguntaProduto.Pergunta;
 
 @Component
-public class FakeEnviarEmailPergunta implements EmailPerguntaInterface{
+public class FakeEnviarEmailPergunta implements EmailPerguntaInterface {
 
 	@Override
 	public void send(Pergunta pergunta) {

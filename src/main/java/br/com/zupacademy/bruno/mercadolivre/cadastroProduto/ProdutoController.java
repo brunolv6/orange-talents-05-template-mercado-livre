@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zupacademy.bruno.mercadolivre.cadastroUsuario.Usuario;
-import br.com.zupacademy.bruno.mercadolivre.compartilhados.otherServers.FakeSubirImagensBucket;
+import br.com.zupacademy.bruno.mercadolivre.compartilhados.servicosExternos.armazenarImagem.FakeSubirImagensBucket;
 
 @RestController
 @RequestMapping("/api/produto")

@@ -65,10 +65,10 @@ public class HandleErrors {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
 	}
 	
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity handleAuthenticationException(RuntimeException e) {
-		ErrosFormularioDto erroDto = new ErrosFormularioDto("Incompatibilidade", e.getMessage());
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
-	}
+//	@ExceptionHandler(RuntimeException.class)
+//	public ResponseEntity handleAuthenticationException(RuntimeException e) {
+//		ErrosFormularioDto erroDto = new ErrosFormularioDto("Incompatibilidade", e.getMessage());
+//		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDto);
+//	}
 
 }

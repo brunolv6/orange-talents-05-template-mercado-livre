@@ -1,4 +1,4 @@
-package br.com.zupacademy.bruno.mercadolivre.pedido;
+package br.com.zupacademy.bruno.mercadolivre.efetuarCompra.fazerPedido;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

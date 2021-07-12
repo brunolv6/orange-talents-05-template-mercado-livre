@@ -1,4 +1,4 @@
-package br.com.zupacademy.bruno.mercadolivre.compartilhados.otherServers;
+package br.com.zupacademy.bruno.mercadolivre.compartilhados.servicosExternos.armazenarImagem;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import br.com.zupacademy.bruno.mercadolivre.cadastroProduto.ImagensRequest;
 
 @Component
-public class FakeSubirImagensBucket implements ExternalServer{
+public class FakeSubirImagensBucket implements ServidorImagens {
 
 	@Override
 	public Set<String> upload(ImagensRequest listaImagens){

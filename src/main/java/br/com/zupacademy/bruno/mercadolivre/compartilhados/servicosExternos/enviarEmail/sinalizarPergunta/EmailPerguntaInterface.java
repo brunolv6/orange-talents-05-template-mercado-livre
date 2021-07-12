@@ -1,4 +1,4 @@
-package br.com.zupacademy.bruno.mercadolivre.compartilhados.email;
+package br.com.zupacademy.bruno.mercadolivre.compartilhados.servicosExternos.enviarEmail.sinalizarPergunta;
 
 import br.com.zupacademy.bruno.mercadolivre.perguntaProduto.Pergunta;
 

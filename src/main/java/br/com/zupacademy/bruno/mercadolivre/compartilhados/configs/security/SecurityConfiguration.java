@@ -16,43 +16,42 @@ import br.com.zupacademy.bruno.mercadolivre.cadastroUsuario.UsuarioRepository;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AuthGetUserComponent authGetUserComponent;
-	
+
 	@Autowired
 	private GerenciarToken gerenciarToken;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests() 
-			.antMatchers("/api/auth").permitAll()
-			.antMatchers("/api/usuario").permitAll()
-			.antMatchers("/api/produto/*/detalhes").permitAll()
-			.anyRequest().authenticated()
-			.and().httpBasic()
-			.and().formLogin()
-			.and().csrf().disable()	
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().addFilterBefore(new AuthViaTokenFilter(gerenciarToken, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+		http.authorizeRequests()
+				.antMatchers("/api/auth").permitAll()
+				.antMatchers("/api/usuario").permitAll()
+				.antMatchers("/api/produto/*/detalhes").permitAll()
+				.antMatchers("/paypal.com/*").permitAll()
+				.antMatchers("/api/local/**").permitAll()
+				.antMatchers("/pagseguro.com/*").permitAll()
+				.antMatchers("/api/retorno-paypal/*").permitAll()
+				.anyRequest().authenticated().and().httpBasic().and().formLogin().and().csrf().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.addFilterBefore(new AuthViaTokenFilter(gerenciarToken, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(authGetUserComponent)
-			.passwordEncoder(new BCryptPasswordEncoder());
-			
+		auth.userDetailsService(authGetUserComponent).passwordEncoder(new BCryptPasswordEncoder());
+
 	}
-	
+
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
-	
+
 }
