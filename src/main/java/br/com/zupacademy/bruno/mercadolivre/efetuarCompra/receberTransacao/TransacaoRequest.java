@@ -27,7 +27,8 @@ public class TransacaoRequest {
 	}
 
 	public Transacao toModel(Pedido pedido) {
-		return new Transacao(idTransacao, pedido, status);
+		StatusTransacao statusTransacao = (status)? StatusTransacao.SUCESSO : StatusTransacao.FALHA;
+		return new Transacao(idTransacao, pedido, statusTransacao);
 	}
 
 }

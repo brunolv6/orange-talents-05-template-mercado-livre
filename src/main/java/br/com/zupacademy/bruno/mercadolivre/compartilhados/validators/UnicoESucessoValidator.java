@@ -1,5 +1,7 @@
 package br.com.zupacademy.bruno.mercadolivre.compartilhados.validators;
 
+import br.com.zupacademy.bruno.mercadolivre.efetuarCompra.receberTransacao.StatusTransacao;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -29,7 +31,7 @@ public class UnicoESucessoValidator implements ConstraintValidator<UnicoESucesso
 
 		query.setParameter("value", value);
 
-		query.setParameter("value2", true);
+		query.setParameter("value2", StatusTransacao.SUCESSO);
 
 		List<?> resultado = query.getResultList();
 

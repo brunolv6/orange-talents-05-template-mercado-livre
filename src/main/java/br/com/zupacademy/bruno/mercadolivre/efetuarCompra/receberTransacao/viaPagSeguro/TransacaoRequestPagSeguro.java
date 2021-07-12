@@ -28,7 +28,7 @@ public class TransacaoRequestPagSeguro {
     public String toString() {
         return "TransacaoRequest [idTransacao=" + idTransacao + ", status=" + status + "]";
     }
-
+    
     public TransacaoRequest toModel() {
         Boolean statusBoolean = (status == "SUCESSO");
         return new TransacaoRequest(idTransacao, statusBoolean);

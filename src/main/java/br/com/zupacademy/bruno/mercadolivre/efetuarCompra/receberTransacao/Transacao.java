@@ -5,13 +5,7 @@ import br.com.zupacademy.bruno.mercadolivre.efetuarCompra.fazerPedido.Pedido;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
@@ -34,14 +28,15 @@ public class Transacao {
 	private LocalDateTime instante = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 
 	@NotNull
-	private Boolean status;
+	@Enumerated(EnumType.STRING)
+	private StatusTransacao status;
 
 	@Deprecated
 	public Transacao() {
 		super();
 	}
 
-	public Transacao(@NotNull String idTransacao, @NotNull Pedido pedido, Boolean status) {
+	public Transacao(@NotNull String idTransacao, @NotNull Pedido pedido, StatusTransacao status) {
 		super();
 		this.idTransacao = idTransacao;
 		this.pedido = pedido;
@@ -49,7 +44,7 @@ public class Transacao {
 	}
 
 	public Boolean getStatus() {
-		return status;
+		return status == StatusTransacao.SUCESSO;
 	}
 
 	@Override
